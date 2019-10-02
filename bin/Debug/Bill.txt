@@ -1,0 +1,7 @@
+Milktea	16	1.49 $	23.84 $
+Fried Chicken	10	7.49 $	74.89999 $
+Coca Cola	8	1.99 $	15.92 $
+Coffe	1	2 $	2 $
+Fried Chip	1	2.19 $	2.19 $
+Black Sugar Milktea	16	1.69 $	27.04 $
+Total Money:	145.89

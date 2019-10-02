@@ -1,0 +1,9 @@
+E:\Dev\VyFood\VyFood\bin\Debug\VyFood.exe.config
+E:\Dev\VyFood\VyFood\bin\Debug\VyFood.exe
+E:\Dev\VyFood\VyFood\bin\Debug\VyFood.pdb
+E:\Dev\VyFood\VyFood\obj\Debug\VyFood.csprojAssemblyReference.cache
+E:\Dev\VyFood\VyFood\obj\Debug\VyFood.Form1.resources
+E:\Dev\VyFood\VyFood\obj\Debug\VyFood.Properties.Resources.resources
+E:\Dev\VyFood\VyFood\obj\Debug\VyFood.csproj.GenerateResource.cache
+E:\Dev\VyFood\VyFood\obj\Debug\VyFood.exe
+E:\Dev\VyFood\VyFood\obj\Debug\VyFood.pdb

@@ -1,8 +1,8 @@
-.exe
-.gitignore
-.config
-.csproj
-.resx
-bin
-obj
-Properties
+*.exe
+*.gitignore
+*.config
+*.csproj
+*.resx
+/bin
+/obj
+/Properties

@@ -112,9 +112,9 @@ namespace VyFood
                 if (food[i].Quantity > 0)
                 {
                     totalMoney += food[i].Fee();
-                    sw.WriteLine(food[i].Name + "\t" + food[i].Quantity + "\t" + food[i].Price + " $\t" + food[i].Fee() + " $");
+                    sw.WriteLine("{0}  {1}$ {2}  {3}$", food[i].Name, food[i].Price, food[i].Quantity, food[i].Fee());
                 }
-            sw.WriteLine("Total Money:\t" + totalMoney + " $");
+            sw.WriteLine("Total Money: {0}$", totalMoney);
             sw.Close();
         }
 

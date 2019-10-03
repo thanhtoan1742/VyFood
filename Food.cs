@@ -243,8 +243,11 @@ namespace VyFood
             Quantity = Convert.ToInt32(GUIMenuQuantity.Text);
             Quantity = Math.Min(999, Quantity);
             Quantity = Math.Max(0, Quantity);
-            GUIMenuQuantity.Text = Convert.ToString(Quantity);
 
+            if (Name == "Phu Yen's Special")
+                if (Quantity != 0) Quantity = 1;
+
+            GUIMenuQuantity.Text = Convert.ToString(Quantity);
         }
 
         public float Fee()

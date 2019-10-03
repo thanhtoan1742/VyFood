@@ -34,12 +34,12 @@
             this.tabControl = new System.Windows.Forms.TabControl();
             this.TabMenu = new System.Windows.Forms.TabPage();
             this.TabCart = new System.Windows.Forms.TabPage();
-            this.NameHeader = new System.Windows.Forms.Label();
-            this.PriceHeader = new System.Windows.Forms.Label();
-            this.QuantityHeader = new System.Windows.Forms.Label();
-            this.TotalMoneyHeader = new System.Windows.Forms.Label();
             this.PayButton = new System.Windows.Forms.Button();
             this.TotalMoney = new System.Windows.Forms.Label();
+            this.TotalMoneyHeader = new System.Windows.Forms.Label();
+            this.QuantityHeader = new System.Windows.Forms.Label();
+            this.PriceHeader = new System.Windows.Forms.Label();
+            this.NameHeader = new System.Windows.Forms.Label();
             this.tabControl.SuspendLayout();
             this.TabCart.SuspendLayout();
             this.SuspendLayout();
@@ -54,6 +54,10 @@
             this.FoodImageList.Images.SetKeyName(3, "coffee");
             this.FoodImageList.Images.SetKeyName(4, "potato");
             this.FoodImageList.Images.SetKeyName(5, "blacksugar");
+            this.FoodImageList.Images.SetKeyName(6, "taco");
+            this.FoodImageList.Images.SetKeyName(7, "hamburger");
+            this.FoodImageList.Images.SetKeyName(8, "steak.jpg");
+            this.FoodImageList.Images.SetKeyName(9, "Vy");
             // 
             // tabControl
             // 
@@ -76,6 +80,8 @@
             this.TabMenu.Size = new System.Drawing.Size(887, 426);
             this.TabMenu.TabIndex = 0;
             this.TabMenu.Text = "Menu";
+            this.TabMenu.SizeChanged += new System.EventHandler(this.TabMenu_SizeChanged);
+            this.TabMenu.Enter += new System.EventHandler(this.TabMenu_Enter);
             // 
             // TabCart
             // 
@@ -95,54 +101,6 @@
             this.TabCart.TabIndex = 1;
             this.TabCart.Text = "Cart";
             this.TabCart.Enter += new System.EventHandler(this.TabCart_Enter);
-            // 
-            // NameHeader
-            // 
-            this.NameHeader.BackColor = System.Drawing.Color.DarkCyan;
-            this.NameHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NameHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.NameHeader.Location = new System.Drawing.Point(192, 10);
-            this.NameHeader.Name = "NameHeader";
-            this.NameHeader.Size = new System.Drawing.Size(162, 50);
-            this.NameHeader.TabIndex = 0;
-            this.NameHeader.Text = "Name";
-            this.NameHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // PriceHeader
-            // 
-            this.PriceHeader.BackColor = System.Drawing.Color.DarkCyan;
-            this.PriceHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PriceHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.PriceHeader.Location = new System.Drawing.Point(360, 10);
-            this.PriceHeader.Name = "PriceHeader";
-            this.PriceHeader.Size = new System.Drawing.Size(162, 50);
-            this.PriceHeader.TabIndex = 0;
-            this.PriceHeader.Text = "Price";
-            this.PriceHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // QuantityHeader
-            // 
-            this.QuantityHeader.BackColor = System.Drawing.Color.DarkCyan;
-            this.QuantityHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.QuantityHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.QuantityHeader.Location = new System.Drawing.Point(528, 10);
-            this.QuantityHeader.Name = "QuantityHeader";
-            this.QuantityHeader.Size = new System.Drawing.Size(162, 50);
-            this.QuantityHeader.TabIndex = 0;
-            this.QuantityHeader.Text = "Quantity";
-            this.QuantityHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // TotalMoneyHeader
-            // 
-            this.TotalMoneyHeader.BackColor = System.Drawing.Color.DarkCyan;
-            this.TotalMoneyHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TotalMoneyHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.TotalMoneyHeader.Location = new System.Drawing.Point(707, 10);
-            this.TotalMoneyHeader.Name = "TotalMoneyHeader";
-            this.TotalMoneyHeader.Size = new System.Drawing.Size(162, 50);
-            this.TotalMoneyHeader.TabIndex = 0;
-            this.TotalMoneyHeader.Text = "Total Money";
-            this.TotalMoneyHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // PayButton
             // 
@@ -168,6 +126,54 @@
             this.TotalMoney.TabIndex = 0;
             this.TotalMoney.Text = "0 $";
             this.TotalMoney.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TotalMoneyHeader
+            // 
+            this.TotalMoneyHeader.BackColor = System.Drawing.Color.DarkCyan;
+            this.TotalMoneyHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TotalMoneyHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.TotalMoneyHeader.Location = new System.Drawing.Point(707, 10);
+            this.TotalMoneyHeader.Name = "TotalMoneyHeader";
+            this.TotalMoneyHeader.Size = new System.Drawing.Size(162, 50);
+            this.TotalMoneyHeader.TabIndex = 0;
+            this.TotalMoneyHeader.Text = "Total Money";
+            this.TotalMoneyHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // QuantityHeader
+            // 
+            this.QuantityHeader.BackColor = System.Drawing.Color.DarkCyan;
+            this.QuantityHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.QuantityHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.QuantityHeader.Location = new System.Drawing.Point(528, 10);
+            this.QuantityHeader.Name = "QuantityHeader";
+            this.QuantityHeader.Size = new System.Drawing.Size(162, 50);
+            this.QuantityHeader.TabIndex = 0;
+            this.QuantityHeader.Text = "Quantity";
+            this.QuantityHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PriceHeader
+            // 
+            this.PriceHeader.BackColor = System.Drawing.Color.DarkCyan;
+            this.PriceHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PriceHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.PriceHeader.Location = new System.Drawing.Point(360, 10);
+            this.PriceHeader.Name = "PriceHeader";
+            this.PriceHeader.Size = new System.Drawing.Size(162, 50);
+            this.PriceHeader.TabIndex = 0;
+            this.PriceHeader.Text = "Price";
+            this.PriceHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // NameHeader
+            // 
+            this.NameHeader.BackColor = System.Drawing.Color.DarkCyan;
+            this.NameHeader.Font = new System.Drawing.Font("Segoe Print", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.NameHeader.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.NameHeader.Location = new System.Drawing.Point(192, 10);
+            this.NameHeader.Name = "NameHeader";
+            this.NameHeader.Size = new System.Drawing.Size(162, 50);
+            this.NameHeader.TabIndex = 0;
+            this.NameHeader.Text = "Name";
+            this.NameHeader.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 

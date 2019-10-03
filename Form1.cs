@@ -15,6 +15,7 @@ namespace VyFood
     {
         public List<Food> food;
 
+        // Make a Food Object with given name and price.
         public Food MakeFood(string name, float price)
         {
             Food f = new Food();
@@ -25,12 +26,13 @@ namespace VyFood
             return f;
         }
 
-        int i = 0;
+        // Import Food from "Food.txt".
         public void ImportFood()
         {
             food = new List<Food>();
-
             StreamReader sr = File.OpenText("Food.txt");
+            int i = 0; 
+
             do
             {
                 string line = sr.ReadLine();
@@ -39,12 +41,14 @@ namespace VyFood
                 string[] s = line.Trim().Split('"');
                 Food f = MakeFood(s[1], float.Parse(s[2]));
 
-                f.GUIMenuImage.BackgroundImage = FoodImageList.Images[i];
-                f.GUICartImage.BackgroundImage = FoodImageList.Images[i];
-                TabMenu.Controls.Add(f.GUIMenuPanel);
-                if (i > 0)
-                    f.GUIMenuPanel.Location = food[i - 1].GUIMenuPanel.Location + new Size(f.GUIMenuPanel.Size.Width + 25, 0);
+                // If there is not enough images, set the images to null
+                if (i < FoodImageList.Images.Count)
+                    f.GUIMenuImage.BackgroundImage = FoodImageList.Images[i];
+                else
+                    f.GUIMenuImage.BackgroundImage = null;
+                f.GUICartImage.BackgroundImage = f.GUIMenuImage.BackgroundImage;
 
+                TabMenu.Controls.Add(f.GUIMenuPanel);
                 food.Add(f);
                 i++;
             }
@@ -52,11 +56,24 @@ namespace VyFood
 
         }
 
+        private void ExportBill()
+        {
+            StreamWriter sw = File.CreateText("Bill.txt");
+
+            float totalMoney = 0;
+            for (int i = 0; i < food.Count(); i++)
+                if (food[i].Quantity > 0)
+                {
+                    totalMoney += food[i].Fee();
+                    sw.WriteLine("{0}  {1}$ {2}  {3}$", food[i].Name, food[i].Price, food[i].Quantity, food[i].Fee());
+                }
+            sw.WriteLine("Total Money: {0}$", totalMoney);
+            sw.Close();
+        }
         public Form1()
         {
             InitializeComponent();
             ImportFood();
-            Food call = new Food();
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -64,7 +81,7 @@ namespace VyFood
             tabControl.Size = Size - new Size(20, 40);
         }
 
-        private void TabCart_Enter(object sender, EventArgs e)
+        private void ReArrageTabCart()
         {
             int j = -1;
 
@@ -87,7 +104,7 @@ namespace VyFood
                 }
                 else
                     if (TabCart.Controls.Contains(food[i].GUICartPanel))
-                        TabCart.Controls.Remove(food[i].GUICartPanel);
+                    TabCart.Controls.Remove(food[i].GUICartPanel);
 
             TotalMoney.Text = Convert.ToString(totalMoney) + " $";
 
@@ -101,22 +118,14 @@ namespace VyFood
                 TotalMoney.Location = new Point(6, NameHeader.Location.Y + NameHeader.Size.Height + 20);
                 PayButton.Location = new Point(TotalMoney.Size.Width + 26, TotalMoney.Location.Y);
             }
+
         }
 
-        private void ExportBill()
+        private void TabCart_Enter(object sender, EventArgs e)
         {
-            StreamWriter sw = File.CreateText("Bill.txt");
-
-            float totalMoney = 0;
-            for (int i = 0; i < food.Count(); i++)
-                if (food[i].Quantity > 0)
-                {
-                    totalMoney += food[i].Fee();
-                    sw.WriteLine("{0}  {1}$ {2}  {3}$", food[i].Name, food[i].Price, food[i].Quantity, food[i].Fee());
-                }
-            sw.WriteLine("Total Money: {0}$", totalMoney);
-            sw.Close();
+            ReArrageTabCart();
         }
+
 
         private void PayButton_Click(object sender, EventArgs e)
         {
@@ -129,9 +138,34 @@ namespace VyFood
                     food[i].Quantity = 0;
                     food[i].UpdateGUIMenuQuantity();
                 }
-                TabCart_Enter(null, null);
+                ReArrageTabCart();
             }
                 
+        }
+
+        private void ReArrangeTabMenuFood()
+        {
+            //StreamWriter sw = File.CreateText("debug.txt");
+            //sw.WriteLine(TabMenu.Size.Width + ' ' + TabMenu.Size.Height);
+            for (int i = 0; i < food.Count(); i++)
+            {
+                if (i > 0)
+                    food[i].GUIMenuPanel.Location = food[i - 1].GUIMenuPanel.Location + new Size(food[i].GUIMenuPanel.Size.Width + 25, 0);
+                if (food[i].GUIMenuPanel.Location.X + food[i].GUIMenuPanel.Size.Width > TabMenu.Size.Width)
+                    food[i].GUIMenuPanel.Location = new Point(food[0].GUIMenuPanel.Location.X, food[i].GUIMenuPanel.Location.Y + food[i].GUIMenuPanel.Size.Height + 20);
+                //sw.WriteLine(food[i].GUIMenuPanel.Location.X + ' ' + food[i].GUIMenuPanel.Location.Y);
+            }
+            //sw.Close();
+        }
+
+        private void TabMenu_Enter(object sender, EventArgs e)
+        {
+            ReArrangeTabMenuFood();
+        }
+
+        private void TabMenu_SizeChanged(object sender, EventArgs e)
+        {
+            ReArrangeTabMenuFood();
         }
     }
 }

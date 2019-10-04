@@ -105,9 +105,9 @@ namespace VyFood
                     if (j != -1)
                         food[i].GUICartPanel.Location = food[j].GUICartPanel.Location
                             + new Size(0, food[i].GUICartPanel.Size.Height + 20);
-                    // Else set its location to (6, 78).
+                    // Else set its location according to NameHeader.
                     else
-                        food[i].GUICartPanel.Location = new Point(6, 78);
+                        food[i].GUICartPanel.Location = new Point(NameHeader.Location.X - 186, NameHeader.Location.Y + 80);
                     j = i;
                 }
                 else
@@ -127,8 +127,8 @@ namespace VyFood
             else
             {
                 // Else set the location according to Headers.
-                TotalMoney.Location = new Point(6, NameHeader.Location.Y + NameHeader.Size.Height + 20);
-                PayButton.Location = new Point(TotalMoney.Size.Width + 26, TotalMoney.Location.Y);
+                TotalMoney.Location = new Point(NameHeader.Location.X - 186, NameHeader.Location.Y + NameHeader.Size.Height + 20);
+                PayButton.Location = new Point(TotalMoney.Location.X + TotalMoney.Size.Width + 26, TotalMoney.Location.Y);
             }
 
         }
@@ -162,7 +162,6 @@ namespace VyFood
         // Arrange food in TabMenu.
         private void ArrangeTabMenu()
         {
-        	//
             food[0].GUIMenuPanel.Location = new Point(12, 12);
             for (int i = 1; i < food.Count(); i++)
             {
@@ -172,7 +171,7 @@ namespace VyFood
                 if (food[i].GUIMenuPanel.Location.X + food[i].GUIMenuPanel.Size.Width > TabMenu.Size.Width)
                     food[i].GUIMenuPanel.Location = new Point(food[0].GUIMenuPanel.Location.X, food[i].GUIMenuPanel.Location.Y + food[i].GUIMenuPanel.Size.Height + 20);
             }
-            // Seem stupid but doing this actually prevents some bugs.
+            // Seems stupid but doing this actually prevents some bugs.
             TabMenu.AutoScroll = false;
             TabMenu.AutoScroll = true;
         }

@@ -1,0 +1,10 @@
+"Milktea" 1.49
+"Fried Chicken" 7.49
+"Coca Cola" 1.99
+"Coffee" 2
+"Fried Chip" 2.19
+"Black Sugar Milktea" 1.69
+"Taco" 2.29
+"Hamburger" 3.59
+"Beef Steak" 8.99
+"Phu Yen's Special" -100000

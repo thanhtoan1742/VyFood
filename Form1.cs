@@ -54,6 +54,7 @@ namespace VyFood
             }
             while (true);
 
+            ArrangeTabMenu();
         }
 
         private void ExportBill()
@@ -70,10 +71,12 @@ namespace VyFood
             sw.WriteLine("Total Money: {0}$", totalMoney);
             sw.Close();
         }
+
         public Form1()
         {
             InitializeComponent();
             ImportFood();
+            
         }
 
         private void Form1_SizeChanged(object sender, EventArgs e)
@@ -83,7 +86,7 @@ namespace VyFood
         }
 
         // Arrage food and buttons in TabCart.
-        private void ArrageTabCart()
+        private void ArrangeTabCart()
         {
             int j = -1;
 
@@ -133,7 +136,7 @@ namespace VyFood
         private void TabCart_Enter(object sender, EventArgs e)
         {
             // Arrange food when enter TabCart.
-            ArrageTabCart();
+            ArrangeTabCart();
         }
 
         private void PayButton_Click(object sender, EventArgs e)
@@ -151,13 +154,13 @@ namespace VyFood
                     food[i].UpdateGUIMenuQuantity();
                 }
                 // Reset Tabcart
-                ArrageTabCart();
+                ArrangeTabCart();
             }
                 
         }
 
         // Arrange food in TabMenu.
-        private void ReArrangeTabMenuFood()
+        private void ArrangeTabMenu()
         {
         	//
             food[0].GUIMenuPanel.Location = new Point(12, 12);
@@ -176,12 +179,12 @@ namespace VyFood
 
         private void TabMenu_Enter(object sender, EventArgs e)
         {
-            ReArrangeTabMenuFood();
+            ArrangeTabMenu();
         }
 
         private void TabMenu_SizeChanged(object sender, EventArgs e)
         {
-            ReArrangeTabMenuFood();
+            ArrangeTabMenu();
         }
     }
 }

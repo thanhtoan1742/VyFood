@@ -66,7 +66,7 @@
             this.tabControl.Location = new System.Drawing.Point(2, 1);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(895, 452);
+            this.tabControl.Size = new System.Drawing.Size(907, 452);
             this.tabControl.TabIndex = 0;
             // 
             // TabMenu
@@ -77,7 +77,7 @@
             this.TabMenu.Location = new System.Drawing.Point(4, 22);
             this.TabMenu.Name = "TabMenu";
             this.TabMenu.Padding = new System.Windows.Forms.Padding(3);
-            this.TabMenu.Size = new System.Drawing.Size(887, 426);
+            this.TabMenu.Size = new System.Drawing.Size(899, 426);
             this.TabMenu.TabIndex = 0;
             this.TabMenu.Text = "Menu";
             this.TabMenu.SizeChanged += new System.EventHandler(this.TabMenu_SizeChanged);

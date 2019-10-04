@@ -78,11 +78,11 @@ namespace VyFood
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            // Resize the tab menu porpotional to the form size.
+            // Resize the tab menu to the form's size with some offset.
             tabControl.Size = Size - new Size(20, 40);
         }
 
-        // Arrage food and Button in TabCart.
+        // Arrage food and buttons in TabCart.
         private void ArrageTabCart()
         {
             int j = -1;
@@ -159,16 +159,17 @@ namespace VyFood
         // Arrange food in TabMenu.
         private void ReArrangeTabMenuFood()
         {
+        	//
             food[0].GUIMenuPanel.Location = new Point(12, 12);
             for (int i = 1; i < food.Count(); i++)
             {
-                // set its Location according to the previous one.
+                // Set current food's Location according to the previous one.
                 food[i].GUIMenuPanel.Location = food[i - 1].GUIMenuPanel.Location + new Size(food[i].GUIMenuPanel.Size.Width + 25, 0);
-                // if its Panel cannot fit in, set its Location to the next line of food.
+                // If its Panel cannot fit in, set its Location to the next line of food.
                 if (food[i].GUIMenuPanel.Location.X + food[i].GUIMenuPanel.Size.Width > TabMenu.Size.Width)
                     food[i].GUIMenuPanel.Location = new Point(food[0].GUIMenuPanel.Location.X, food[i].GUIMenuPanel.Location.Y + food[i].GUIMenuPanel.Size.Height + 20);
             }
-            // Seem stupid but doing this actually prevent some bugs.
+            // Seem stupid but doing this actually prevents some bugs.
             TabMenu.AutoScroll = false;
             TabMenu.AutoScroll = true;
         }

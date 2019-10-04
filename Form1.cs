@@ -41,7 +41,7 @@ namespace VyFood
                 string[] s = line.Trim().Split('"');
                 Food f = MakeFood(s[1], float.Parse(s[2]));
 
-                // If there is not enough images, set the images to null
+                // If there is not enough images, set the images to null (i.e. nothing)
                 if (i < FoodImageList.Images.Count)
                     f.GUIMenuImage.BackgroundImage = FoodImageList.Images[i];
                 else
@@ -78,10 +78,12 @@ namespace VyFood
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
+            // Resize the tab menu porpotional to the form size.
             tabControl.Size = Size - new Size(20, 40);
         }
 
-        private void ReArrageTabCart()
+        // Arrage food and Button in TabCart.
+        private void ArrageTabCart()
         {
             int j = -1;
 
@@ -89,32 +91,39 @@ namespace VyFood
             for (int i = 0; i < food.Count(); i++)
                 if (food[i].Quantity > 0)
                 {
+                    // Update some labels and add the current food's CartPanel to TabCart.
                     totalMoney += food[i].Fee();
                     food[i].UpdateGUICartQuantity();
                     food[i].UpdateGUICartTotalMoney();
                     if (!TabCart.Controls.Contains(food[i].GUICartPanel))
                         TabCart.Controls.Add(food[i].GUICartPanel);
 
+                    // If this is not the first food in the list then set its location according to the previous one.
                     if (j != -1)
                         food[i].GUICartPanel.Location = food[j].GUICartPanel.Location
                             + new Size(0, food[i].GUICartPanel.Size.Height + 20);
+                    // Else set its location to (6, 78).
                     else
                         food[i].GUICartPanel.Location = new Point(6, 78);
                     j = i;
                 }
                 else
+                    // Remove the food from TabCart if it's necessary.
                     if (TabCart.Controls.Contains(food[i].GUICartPanel))
                     TabCart.Controls.Remove(food[i].GUICartPanel);
 
             TotalMoney.Text = Convert.ToString(totalMoney) + " $";
 
+            // Set the location of Total Money Label and Pay Button.
             if (j != -1)
             {
+                //If the is some food in the list, set the location according to the last food in the list.
                 TotalMoney.Location = food[j].GUICartPanel.Location + new Size(0, food[j].GUICartPanel.Size.Height + 20);
                 PayButton.Location = food[j].GUICartPanel.Location + new Size(TotalMoney.Size.Width + 20, food[j].GUICartPanel.Size.Height + 20);
             }
             else
             {
+                // Else set the location according to Headers.
                 TotalMoney.Location = new Point(6, NameHeader.Location.Y + NameHeader.Size.Height + 20);
                 PayButton.Location = new Point(TotalMoney.Size.Width + 26, TotalMoney.Location.Y);
             }
@@ -123,39 +132,45 @@ namespace VyFood
 
         private void TabCart_Enter(object sender, EventArgs e)
         {
-            ReArrageTabCart();
+            // Arrange food when enter TabCart.
+            ArrageTabCart();
         }
-
 
         private void PayButton_Click(object sender, EventArgs e)
         {
+            // Confirmation Box.
             DialogResult result = MessageBox.Show("Are you sure ?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (result == DialogResult.Yes)
             {
                 ExportBill();
+                // Reset food's Quantity and Quantity Label.
                 for (int i = 0; i < food.Count(); i++)
                 {
                     food[i].Quantity = 0;
                     food[i].UpdateGUIMenuQuantity();
                 }
-                ReArrageTabCart();
+                // Reset Tabcart
+                ArrageTabCart();
             }
                 
         }
 
+        // Arrange food in TabMenu.
         private void ReArrangeTabMenuFood()
         {
-            //StreamWriter sw = File.CreateText("debug.txt");
-            //sw.WriteLine(TabMenu.Size.Width + ' ' + TabMenu.Size.Height);
-            for (int i = 0; i < food.Count(); i++)
+            food[0].GUIMenuPanel.Location = new Point(12, 12);
+            for (int i = 1; i < food.Count(); i++)
             {
-                if (i > 0)
-                    food[i].GUIMenuPanel.Location = food[i - 1].GUIMenuPanel.Location + new Size(food[i].GUIMenuPanel.Size.Width + 25, 0);
+                // set its Location according to the previous one.
+                food[i].GUIMenuPanel.Location = food[i - 1].GUIMenuPanel.Location + new Size(food[i].GUIMenuPanel.Size.Width + 25, 0);
+                // if its Panel cannot fit in, set its Location to the next line of food.
                 if (food[i].GUIMenuPanel.Location.X + food[i].GUIMenuPanel.Size.Width > TabMenu.Size.Width)
                     food[i].GUIMenuPanel.Location = new Point(food[0].GUIMenuPanel.Location.X, food[i].GUIMenuPanel.Location.Y + food[i].GUIMenuPanel.Size.Height + 20);
-                //sw.WriteLine(food[i].GUIMenuPanel.Location.X + ' ' + food[i].GUIMenuPanel.Location.Y);
             }
-            //sw.Close();
+            // Seem stupid but doing this actually prevent some bugs.
+            TabMenu.AutoScroll = false;
+            TabMenu.AutoScroll = true;
         }
 
         private void TabMenu_Enter(object sender, EventArgs e)
